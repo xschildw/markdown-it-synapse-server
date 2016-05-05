@@ -1,0 +1,37 @@
+{
+  "name": "markdown-it-synapse-server",
+  "version": "1.0.0",
+  "description": "Plugin to create a node js server to resolve Synapse markdown to html",
+  "repository": "markdown-it/markdown-it-synapse-server",
+  "license": "MIT",
+  "scripts": {
+    "test": "make test"
+  },
+  "keywords": [
+    "markdown-it-plugin",
+    "markdown-it",
+    "markdown",
+    "Synapse"
+  ],
+  "devDependencies": {
+    "browserify": "*",
+    "coveralls": "^2.11.2",
+    "eslint": "0.13.0",
+    "eslint-plugin-nodeca": "^1.0.0",
+    "istanbul": "*",
+    "markdown-it": "markdown-it/markdown-it",
+    "markdown-it-testgen": "~0.1.0",
+    "mocha": "*",
+    "markdown-it-synapse": "1.0.5",
+    "markdown-it-center-text": "1.0.3",
+    "markdown-it-container": "2.0.0",
+    "markdown-it-emphasis-alt": "1.0.8",
+    "markdown-it-synapse-math": "3.0.4",
+    "markdown-it-strikethrough-alt": "1.0.0",
+    "markdown-it-sub": "1.0.0",
+    "markdown-it-sup": "1.0.0",
+    "markdown-it-synapse-heading": "1.0.1",
+    "markdown-it-synapse-table": "1.0.6",
+    "uglify-js": "*"
+  }
+}
