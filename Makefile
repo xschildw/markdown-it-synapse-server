@@ -13,9 +13,6 @@ GITHUB_PROJ := https://github.com//markdown-it/${NPM_PACKAGE}
 lint:
 	./node_modules/.bin/eslint --reset .
 
-test: lint
-	./node_modules/.bin/mocha -R spec
-
 coverage:
 	rm -rf coverage
 	./node_modules/.bin/istanbul cover node_modules/.bin/_mocha

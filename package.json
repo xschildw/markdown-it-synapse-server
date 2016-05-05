@@ -5,7 +5,7 @@
   "repository": "markdown-it/markdown-it-synapse-server",
   "license": "MIT",
   "scripts": {
-    "test": "make test"
+    "test": "mocha"
   },
   "keywords": [
     "markdown-it-plugin",
@@ -32,6 +32,7 @@
     "markdown-it-sup": "1.0.0",
     "markdown-it-synapse-heading": "1.0.1",
     "markdown-it-synapse-table": "1.0.6",
-    "uglify-js": "*"
+    "uglify-js": "*",
+    "supertest": "^1.0.1"
   }
 }
