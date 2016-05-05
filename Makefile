@@ -13,12 +13,5 @@ GITHUB_PROJ := https://github.com//markdown-it/${NPM_PACKAGE}
 lint:
 	./node_modules/.bin/eslint --reset .
 
-coverage:
-	rm -rf coverage
-	./node_modules/.bin/istanbul cover node_modules/.bin/_mocha
-
-test-ci: lint
-	istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
-
 .PHONY: lint test coverage
 .SILENT: lint test

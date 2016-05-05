@@ -14,11 +14,8 @@
     "Synapse"
   ],
   "devDependencies": {
-    "browserify": "*",
-    "coveralls": "^2.11.2",
     "eslint": "0.13.0",
     "eslint-plugin-nodeca": "^1.0.0",
-    "istanbul": "*",
     "markdown-it": "markdown-it/markdown-it",
     "markdown-it-testgen": "~0.1.0",
     "mocha": "*",
@@ -32,7 +29,6 @@
     "markdown-it-sup": "1.0.0",
     "markdown-it-synapse-heading": "1.0.1",
     "markdown-it-synapse-table": "1.0.6",
-    "uglify-js": "*",
     "supertest": "^1.0.1"
   }
 }
