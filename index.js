@@ -2,6 +2,7 @@
 var http = require('http');
 // var url = require('url');
 // var path = require('path');
+var juice = require('juice');
 var port = process.argv[2] || 8080;
 http.createServer(function(request, response) {
   // var headers = request.headers;
@@ -45,12 +46,19 @@ http.createServer(function(request, response) {
         .use(require('markdown-it-emphasis-alt'))
         .use(synapsePlugin)
         .use(require('markdown-it-synapse-math'));
-
-      var result = md.render(synapsePlugin.preprocessMarkdown(body));
-      responseBody = {
-        html: result
-      };
-      response.end(JSON.stringify(responseBody));
+      var resultHtml = md.render(synapsePlugin.preprocessMarkdown(body));
+      // pull in portal css, inline css (for use in email)
+      var requestResource = require('request');
+      requestResource.get('https://www.synapse.org/Portal.css', function (error, resourceResponse, resourceBody) {
+          if (!error && resourceResponse.statusCode == 200) {
+            var css = resourceBody;
+            var inlinedStyledHtml = juice.inlineContent(resultHtml, css);
+            responseBody = {
+              html: inlinedStyledHtml
+            };
+            response.end(JSON.stringify(responseBody));        
+          }
+      });
     });
   } else {
     response.statusCode = 404;

@@ -18,8 +18,8 @@ describe('integration tests', function() {
       assert.equal(res.status, 200);
       
       // Error key should be false.
-      assert.equal(false, res.error);
-      assert.equal('<h2 toc="true">heading 2</h2>\n', res.body.html);
+      assert.equal(res.error, false);
+      assert.equal(res.body.html, '<h2 toc="true" style="word-wrap: break-word; font-weight: 200; color: #000000; font-size: 32px; line-height: 40px; margin-bottom: 10px; margin-top: 10px;">heading 2</h2>\n');
       done();
     });
   });
@@ -31,7 +31,7 @@ describe('integration tests', function() {
     .expect(404) // HTTP response
     .end(function(err,res){
       // HTTP status = 404
-      assert.equal(res.status, 404);
+      assert.equal(404, res.status);
       done();
     });
   });
@@ -43,7 +43,7 @@ describe('integration tests', function() {
     .expect(404) // HTTP response
     .end(function(err,res){
       // HTTP status = 404
-      assert.equal(res.status, 404);
+      assert.equal(404, res.status);
       done();
     });
   });
