@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "mocha",
-    "start": "node index.js 8081"
+    "start": "node index.js"
   },
   "keywords": [
     "markdown-it-plugin",
