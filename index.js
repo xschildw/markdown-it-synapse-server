@@ -52,6 +52,8 @@ http.createServer(function(request, response) {
       };
       response.end(JSON.stringify(responseBody));
     });
+  } else if (request.method === 'GET' && request.url === '/healthcheck') {
+      response.statusCode = 200;
   } else {
     response.statusCode = 404;
     responseBody = {
