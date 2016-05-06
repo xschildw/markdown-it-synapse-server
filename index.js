@@ -31,6 +31,9 @@ http.createServer(function(request, response) {
         };
         response.end(JSON.stringify(responseBody));
       });
+	  
+	  console.log('markdown-it: processing markdown');
+	  
       response.statusCode = 200;
 
       var md = require('markdown-it')();
@@ -50,6 +53,9 @@ http.createServer(function(request, response) {
       responseBody = {
         html: result
       };
+	  
+	  console.log('markdown-it: processed markdown');
+	  
       response.end(JSON.stringify(responseBody));
     });
   } else if ((request.method === 'GET' || request.method === 'HEAD') && request.url === '/healthcheck') {
@@ -59,6 +65,7 @@ http.createServer(function(request, response) {
       };
       response.end(JSON.stringify(responseBody));
   } else {
+	  
     response.statusCode = 404;
     responseBody = {
         error: 'Server only supports POST to /markdown2html'
