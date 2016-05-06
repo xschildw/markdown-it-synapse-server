@@ -2,7 +2,7 @@
 var http = require('http');
 // var url = require('url');
 // var path = require('path');
-var port = process.argv[2] || 8081;
+var port = process.argv[2] || 8080;
 http.createServer(function(request, response) {
   // var headers = request.headers;
   var body = [];
@@ -52,7 +52,7 @@ http.createServer(function(request, response) {
       };
       response.end(JSON.stringify(responseBody));
     });
-  } else {if ((request.method === 'GET' || request.method === 'HEAD') && request.url === '/healthcheck') {
+  } else if ((request.method === 'GET' || request.method === 'HEAD') && request.url === '/healthcheck') {
       response.statusCode = 200;
       responseBody = {
           msg: "OK"
@@ -64,7 +64,7 @@ http.createServer(function(request, response) {
         error: 'Server only supports POST to /markdown2html'
       };
     response.end(JSON.stringify(responseBody));
-  }}
+  }
 }).listen(parseInt(port, 10));
 
 console.log('Synapse markdown-it web server running on port ' + port);
