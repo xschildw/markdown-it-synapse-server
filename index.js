@@ -57,7 +57,7 @@ http.createServer(function(request, response) {
       responseBody = {
           msg: "OK"
       }
-      response.end(JSON.stringify(reponseBody));
+      response.end(JSON.stringify(responseBody));
   } else {
     response.statusCode = 404;
     responseBody = {
