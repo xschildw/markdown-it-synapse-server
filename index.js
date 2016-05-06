@@ -52,11 +52,11 @@ http.createServer(function(request, response) {
       };
       response.end(JSON.stringify(responseBody));
     });
-  } else {if (request.method === 'GET' && request.url === '/healthcheck') {
+  } else {if ((request.method === 'GET' || request.method === 'HEAD') && request.url === '/healthcheck') {
       response.statusCode = 200;
       responseBody = {
           msg: "OK"
-      }
+      };
       response.end(JSON.stringify(responseBody));
   } else {
     response.statusCode = 404;
