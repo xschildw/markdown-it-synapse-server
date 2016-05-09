@@ -1,19 +1,19 @@
 'use strict';
-var http = require('http');
 var juice = require('juice');
 var express = require('express');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var app = express();
 var port = process.argv[2] || 8080;
+// accept json
 app.use(bodyParser.json());
-
+// set up a health check service
 var healthCheckFunction = function(request, response) {
   response.statusCode = 200;
   response.end(JSON.stringify( { msg: 'OK' }));  
 };
-
 app.get('/healthcheck', healthCheckFunction);
 app.head('/healthcheck', healthCheckFunction);
+// set a default error handler
 function errorHandler(err, req, res, next) {
   if (res.headersSent) {
     return next(err);
@@ -22,10 +22,11 @@ function errorHandler(err, req, res, next) {
   res.render('error', { error: err });
 }
 app.use(errorHandler);
-
+// set up the markdown processor service
 app.post('/markdown2html', function (request, response) {
   if (!request.body.markdown) {
     response.status(500).send(JSON.stringify({error: '"markdown" undefined'}));
+    return;
   }
   response.setHeader('X-Powered-By', 'Sage Bionetworks Synapse');
   response.setHeader('Content-Type', 'application/json');

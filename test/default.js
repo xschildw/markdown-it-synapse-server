@@ -10,7 +10,8 @@ describe('integration tests', function() {
   it('test to resolve basic markdown to html', function(done) {
     server
     .post('/markdown2html')
-    .send('## heading 2')
+    .set('Accept', 'application/json')
+    .send({ markdown:'## heading 2' })
     .expect('Content-type',/json/)
     .expect(200) // HTTP response
     .end(function(err,res){
