@@ -1,5 +1,4 @@
 'use strict';
-var http = require('http');
 var juice = require('juice');
 var express = require('express');
 var bodyParser = require('body-parser');
