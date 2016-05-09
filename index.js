@@ -25,10 +25,7 @@ app.use(errorHandler);
 
 app.post('/markdown2html', function (request, response) {
   if (!request.body.markdown) {
-    responseBody = {
-      error: 'POST json with "markdown" key defined.'
-    };
-    response.status(500).send(JSON.stringify(responseBody));
+    response.status(500).send(JSON.stringify({error: '"markdown" undefined'}));
   }
   response.setHeader('X-Powered-By', 'Sage Bionetworks Synapse');
   response.setHeader('Content-Type', 'application/json');
