@@ -2,7 +2,7 @@
 var http = require('http');
 var juice = require('juice');
 var express = require('express');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var app = express();
 var port = process.argv[2] || 8080;
 app.use(bodyParser.json());
@@ -26,6 +26,7 @@ app.use(errorHandler);
 app.post('/markdown2html', function (request, response) {
   if (!request.body.markdown) {
     response.status(500).send(JSON.stringify({error: '"markdown" undefined'}));
+    return;
   }
   response.setHeader('X-Powered-By', 'Sage Bionetworks Synapse');
   response.setHeader('Content-Type', 'application/json');
