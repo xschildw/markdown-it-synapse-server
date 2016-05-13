@@ -1,18 +1,18 @@
 'use strict';
-var juice = require('juice');
 var express = require('express');
 var bodyParser = require('body-parser');
-var app = express();
+var juice = require('juice');
+var router = express.Router();
 var port = process.argv[2] || 8080;
 // accept json
-app.use(bodyParser.json());
+router.use(bodyParser.json());
 // set up a health check service
 var healthCheckFunction = function(request, response) {
   response.statusCode = 200;
   response.end(JSON.stringify( { msg: 'OK' }));  
 };
-app.get('/healthcheck', healthCheckFunction);
-app.head('/healthcheck', healthCheckFunction);
+router.get('/healthcheck', healthCheckFunction);
+router.head('/healthcheck', healthCheckFunction);
 // set a default error handler
 function errorHandler(err, req, res, next) {
   if (res.headersSent) {
@@ -21,9 +21,9 @@ function errorHandler(err, req, res, next) {
   res.status(500);
   res.render('error', { error: err });
 }
-app.use(errorHandler);
+router.use(errorHandler);
 // set up the markdown processor service
-app.post('/markdown2html', function (request, response) {
+router.post('/markdown2html', function (request, response) {
   if (!request.body.markdown) {
     response.status(500).send(JSON.stringify({error: '"markdown" undefined'}));
     return;
@@ -54,6 +54,5 @@ app.post('/markdown2html', function (request, response) {
       }
   });
 });
-app.listen(parseInt(port, 10),  function () {
-  console.log('Synapse markdown-it web server running on port ' + port);
-});
+
+module.exports = router;
