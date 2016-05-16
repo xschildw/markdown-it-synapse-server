@@ -33,15 +33,17 @@ router.post('/markdown2html', function (request, response) {
   response.statusCode = 200;
   var md = require('markdown-it')();
   var synapsePlugin = require('markdown-it-synapse');
-  md.use(require('markdown-it-sub'))
-    .use(require('markdown-it-sup'))
-    .use(require('markdown-it-center-text'))
-    .use(require('markdown-it-synapse-heading'))
-    .use(require('markdown-it-synapse-table'))
-    .use(require('markdown-it-strikethrough-alt'))
-    .use(require('markdown-it-container'))
-    .use(require('markdown-it-emphasis-alt'))
-    .use(synapsePlugin)
+  synapsePlugin.init_markdown_it(md,
+    require('markdown-it-sub'), 
+    require('markdown-it-sup'),
+    require('markdown-it-center-text'),
+    require('markdown-it-synapse-heading'),
+    require('markdown-it-synapse-table'),
+    require('markdown-it-strikethrough-alt'),
+    require('markdown-it-container'),
+    require('markdown-it-emphasis-alt'));
+  
+  md.use(synapsePlugin)
     .use(require('markdown-it-synapse-math'));
   var resultHtml = md.render(synapsePlugin.preprocessMarkdown(request.body.markdown));
   // default is Synapse styled html
