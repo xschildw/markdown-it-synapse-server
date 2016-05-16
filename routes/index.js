@@ -44,15 +44,29 @@ router.post('/markdown2html', function (request, response) {
     .use(synapsePlugin)
     .use(require('markdown-it-synapse-math'));
   var resultHtml = md.render(synapsePlugin.preprocessMarkdown(request.body.markdown));
-  // pull in portal css, inline css (for use in email)
-  var requestResource = require('request');
-  requestResource.get('https://www.synapse.org/Portal.css', function (error, resourceResponse, resourceBody) {
-      if (!error && resourceResponse.statusCode == 200) {
-        var css = resourceBody;
-        var inlinedStyledHtml = juice.inlineContent(resultHtml, css);
-        response.end(JSON.stringify({ html: inlinedStyledHtml }));        
-      }
-  });
+  // default is Synapse styled html
+  var output;
+  if (request.body.output) {
+    output = request.body.output;
+  }
+  if (output === 'html') {
+    response.end(JSON.stringify({ result: resultHtml }));
+  } else if (output === 'plain') {
+    var plainText = require('html-to-text').fromString(resultHtml, {
+        wordwrap: 130
+    });
+    response.end(JSON.stringify({ result: plainText }));
+  } else {
+    // pull in portal css, inline css (for use in email)
+    var requestResource = require('request');
+    requestResource.get('https://www.synapse.org/Portal.css', function (error, resourceResponse, resourceBody) {
+        if (!error && resourceResponse.statusCode == 200) {
+          var css = resourceBody;
+          var inlinedStyledHtml = juice.inlineContent(resultHtml, css);
+          response.end(JSON.stringify({ result: inlinedStyledHtml }));        
+        }
+    });
+  }
 });
 
 module.exports = router;
