@@ -34,8 +34,8 @@ router.post('/markdown2html', function (request, response) {
   var md = require('markdown-it')();
   var synapsePlugin = require('markdown-it-synapse');
   synapsePlugin.init_markdown_it(md,
-    require('markdown-it-sub'), 
-    require('markdown-it-sup'),
+    require('markdown-it-sub-alt'), 
+    require('markdown-it-sup-alt'),
     require('markdown-it-center-text'),
     require('markdown-it-synapse-heading'),
     require('markdown-it-synapse-table'),
