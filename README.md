@@ -40,3 +40,12 @@ $ curl -d '{"markdown":"## a heading", "output":"plain"}' -H "Content-Type: appl
 {"result":"A HEADING"}
 ```
 
+######Set base url for automatically linked Synapse IDs, or leave blank for relative path.
+```
+$ curl -d '{"markdown":"syn12345", "output":"html", "baseURL":"https://www.synapse.org/"}' -H "Content-Type: application/json" http://localhost:3000/markdown2html
+{"result":"<p><a href=\"https://www.synapse.org/#!Synapse:syn12345\" target=\"_blank\">syn12345</a></p>\n"}
+
+$ curl -d '{"markdown":"syn12345", "output":"html"}' -H "Content-Type: application/json" http://localhost:3000/markdown2html
+{"result":"<p><a href=\"#!Synapse:syn12345\">syn12345</a></p>\n"}
+```
+
