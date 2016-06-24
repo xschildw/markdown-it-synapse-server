@@ -43,7 +43,7 @@ router.post('/markdown2html', function (request, response) {
     require('markdown-it-container'),
     require('markdown-it-emphasis-alt'));
   
-  md.use(synapsePlugin)
+  md.use(synapsePlugin, '', request.body.baseURL)
     .use(require('markdown-it-synapse-math'));
   var resultHtml = md.render(synapsePlugin.preprocessMarkdown(request.body.markdown));
   // default is Synapse styled html
