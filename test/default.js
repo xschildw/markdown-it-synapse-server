@@ -15,6 +15,12 @@ describe('integration tests', function() {
     .expect('Content-type',/json/)
     .expect(200) // HTTP response
     .end(function(err,res){
+      if (err) return done(err);
+      else {
+        assert.equal(res.body.result, 'HEADING 2');
+        done();
+      }
+
       assert.equal(res.body.result, '<h2 toc="true">heading 2</h2>\n');
       done();
     });
@@ -27,8 +33,11 @@ describe('integration tests', function() {
     .expect('Content-type',/json/)
     .expect(200) // HTTP response
     .end(function(err,res){
-      assert.equal(res.body.result, 'HEADING 2');
-      done();
+      if (err) return done(err);
+      else {
+        assert.equal(res.body.result, 'HEADING 2');
+        done();
+      }
     });
   });
 

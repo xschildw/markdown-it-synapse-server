@@ -41,7 +41,8 @@ router.post('/markdown2html', function (request, response) {
     require('markdown-it-synapse-table'),
     require('markdown-it-strikethrough-alt'),
     require('markdown-it-container'),
-    require('markdown-it-emphasis-alt'));
+    require('markdown-it-emphasis-alt'),
+    require('markdown-it-br'));
   
   md.use(synapsePlugin, '', request.body.baseURL)
     .use(require('markdown-it-synapse-math'));
