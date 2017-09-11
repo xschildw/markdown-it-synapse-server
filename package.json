@@ -27,7 +27,7 @@
     "markdown-it": "markdown-it/markdown-it",
     "markdown-it-testgen": "~0.1.0",
     "mocha": "*",
-    "markdown-it-synapse": "^1.0.14",
+    "markdown-it-synapse": "1.0.17",
     "markdown-it-center-text": "^1.0.3",
     "markdown-it-container": "^2.0.0",
     "markdown-it-emphasis-alt": "^1.0.8",
