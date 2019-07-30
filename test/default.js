@@ -16,12 +16,21 @@ describe('integration tests', function() {
     .expect(200) // HTTP response
     .end(function(err,res){
       if (err) return done(err);
-      else {
-        assert.equal(res.body.result, 'HEADING 2');
-        done();
-      }
-
       assert.equal(res.body.result, '<h2 toc="true">heading 2</h2>\n');
+      done();
+    });
+  });
+  it('test to resolve relative links', function(done) {
+    server
+    .post('/markdown2html')
+    .set('Accept', 'application/json')
+    .send({ markdown:'link to [jay](#!Profile:jay)', output:'html', baseURL:'https://test.synapse.org/' })
+    .expect('Content-type',/json/)
+    .expect(200) // HTTP response
+    .end(function(err,res){
+      if (err) return done(err);
+
+      assert.equal(res.body.result, '<p>link to <a href="https://test.synapse.org/#!Profile:jay" target="_blank" ref="noopener noreferrer">jay</a></p>\n');
       done();
     });
   });

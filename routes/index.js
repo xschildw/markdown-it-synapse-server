@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 var juice = require('juice');
 var router = express.Router();
 var port = process.argv[2] || 8080;
-
 var md = require('markdown-it')();
 var synapsePlugin = require('markdown-it-synapse');
 synapsePlugin.init_markdown_it(md,
@@ -18,6 +17,25 @@ synapsePlugin.init_markdown_it(md,
   require('markdown-it-emphasis-alt'),
   require('markdown-it-inline-comments'),
   require('markdown-it-br'));
+
+var defaultLinkOpenRender = md.renderer.rules.link_open
+    || function (tokens, idx, options, env, self) {
+      return self.renderToken(tokens, idx, options);
+    };
+function sendRelativeLinksToBaseURL(baseURL) {
+  md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
+    if (baseURL) {
+      var hrefIndex = tokens[idx].attrIndex('href');
+      var currentHrefValue = tokens[idx].attrs[hrefIndex][1];
+      if (hrefIndex > -1 && currentHrefValue && currentHrefValue.startsWith('#!')) {
+        // replace href, prepend domain for relative link
+        tokens[idx].attrs[hrefIndex][1] = baseURL + currentHrefValue;
+      }
+    }
+    // pass token to default renderer.
+    return defaultLinkOpenRender(tokens, idx, options, env, self);
+  };
+}
 
 // accept json
 router.use(bodyParser.json());
@@ -48,7 +66,7 @@ router.post('/markdown2html', function (request, response) {
   response.statusCode = 200;
   md.use(synapsePlugin, '', request.body.baseURL)
     .use(require('markdown-it-synapse-math'));
-
+  sendRelativeLinksToBaseURL(request.body.baseURL);
   var resultHtml = md.render(synapsePlugin.preprocessMarkdown(request.body.markdown));
   // default is Synapse styled html
   var output;
